@@ -1,0 +1,156 @@
+{
+  "barriers": [
+    {
+      "id": "B1",
+      "theme": "How we see the system",
+      "description": "Not seeing rural-urban areas as complex systems will be a barrier for transformative development.",
+      "source": "ROBUST D6.3",
+      "tag": "Treating dynamic systems as static"
+    },
+    {
+      "id": "B2",
+      "theme": "How we see the system",
+      "description": "All rural-urban areas are context specific and not capturing these specifics is a barrier for development.",
+      "source": "ROBUST D6.3",
+      "tag": "Defining functional areas"
+    },
+    {
+      "id": "B3",
+      "theme": "How we set goals",
+      "description": "Systemic transformation can only occur if collaborative and long-term thinking is the starting point.",
+      "source": "PoliRuralPlus D3.1",
+      "tag": "Short term and siloed thinking"
+    },
+    {
+      "id": "B4",
+      "theme": "Mindsets",
+      "description": "Might lead to failed collaborations and creates short term and siloed thinking.",
+      "source": "COASTAL D09",
+      "tag": "Stakeholder conflicts / Lack of cooperation / Lack of trust"
+    },
+    {
+      "id": "B5",
+      "theme": "Information flows",
+      "description": "Might lead to lack of inclusion, risks conflicts and negative views on development.",
+      "source": "COASTAL D09",
+      "tag": "Lack of information / education"
+    },
+    {
+      "id": "B6",
+      "theme": "Mindsets",
+      "description": "Might lead to short term and siloed thinking.",
+      "source": "Scientific review",
+      "tag": "Lack of reflection and challenging perspectives"
+    },
+    {
+      "id": "B7",
+      "theme": "How we set goals",
+      "description": "Might lead to siloed thinking, conflicts and negative views on development.",
+      "source": "ROBUST scientific paper",
+      "tag": "Balance different conflicting goals (e.g. tourism vs ecosystem restoration vs industrial development)"
+    },
+    {
+      "id": "B8",
+      "theme": "How we structure systems",
+      "description": "Might lead to lowering ambitions and short term thinking.",
+      "source": "PoliRuralPlus D3.1",
+      "tag": "Local governments lacking in resources"
+    },
+    {
+      "id": "B9",
+      "theme": "Mindsets",
+      "description": "Might lead to conflicts and lack of inclusion.",
+      "source": "PoliRuralPlus D3.1",
+      "tag": "Norms and traditions hinder transformation"
+    },
+    {
+      "id": "B10",
+      "theme": "How we structure systems",
+      "description": "Might lead to conflicts on how development strategies and goals are defined.",
+      "source": "Ruralization D6.2",
+      "tag": "Land access"
+    }
+  ],
+  "leveragePoints": [
+    {
+      "id": "L1",
+      "action": "Develop a wellbeing model, from an emergent, contextual, rural-urban starting point",
+      "theme": "How we set goals",
+      "addressesBarrierIDs": ["B3", "B4", "B7"],
+      "description": "Connect all activities towards a long-term systemic vision; create shared sense of urgency and strong coalition of supporters.",
+      "source": "ROBUST D6.3"
+    },
+    {
+      "id": "L2",
+      "action": "Identify local strengths and heritage resources",
+      "theme": "How we see systems",
+      "addressesBarrierIDs": ["B2"],
+      "description": "Connect initiatives to specific context; build motivation and support for transformation.",
+      "source": "RURITAGE D3.6"
+    },
+    {
+      "id": "L3",
+      "action": "Make sure to include and listen to all relevant actors in the system",
+      "theme": "Information flows",
+      "addressesBarrierIDs": ["B5", "B6", "B9"],
+      "description": "Empower local communities and stakeholders to take ownership of the change process.",
+      "source": "PoliRuralPlus D2.2"
+    },
+    {
+      "id": "L4",
+      "action": "Create inventory of drivers of change",
+      "theme": "Mindsets",
+      "addressesBarrierIDs": ["B1"],
+      "description": "Creates understanding of how change happens now and in the future in the area, and how one can influence these changes.",
+      "source": "PoliRural"
+    },
+    {
+      "id": "L5",
+      "action": "Celebrate short term wins",
+      "theme": "Positive feedback",
+      "addressesBarrierIDs": ["B3", "B6"],
+      "description": "Recognize and celebrate short-term wins to maintain motivation and build momentum for long-term change.",
+      "source": "PoliRuralPlus D2.2"
+    },
+    {
+      "id": "L6",
+      "action": "Public procurement",
+      "theme": "How we structure systems",
+      "addressesBarrierIDs": ["B8", "B10"],
+      "description": "Public bodies as large-scale purchasers can act as anchor institutions in changing markets and behaviours.",
+      "source": "ROBUST D6.3"
+    },
+    {
+      "id": "L7",
+      "action": "Considering and connecting different types of community capital",
+      "theme": "How we see systems",
+      "addressesBarrierIDs": ["B1"],
+      "description": "Financial, political, social, built, natural, cultural, human capital exist in the system; connecting these is essential for transformation.",
+      "source": "RURALIZATION D3.2"
+    },
+    {
+      "id": "L8",
+      "action": "Learning from others to find pathways forward",
+      "theme": "Information flows",
+      "addressesBarrierIDs": ["B1", "B5"],
+      "description": "Find good examples of innovations from others; adapt good principles, not rigid best practices.",
+      "source": "FOODSHIFT 2030"
+    },
+    {
+      "id": "L9",
+      "action": "Learning from others to find pathways forward",
+      "theme": "Information flows",
+      "addressesBarrierIDs": ["B1", "B5"],
+      "description": "Interventions for cultural tourism with reflection on implementation and impacts; useful for learning in RUCLs.",
+      "source": "SmartCulTour D3.1"
+    },
+    {
+      "id": "L10",
+      "action": "Digital information and data sharing",
+      "theme": "Information flows",
+      "addressesBarrierIDs": ["B2", "B5"],
+      "description": "Access integrated data systems/platforms to support joint long-term planning and avoid siloed work.",
+      "source": "Scientific review"
+    }
+  ]
+}

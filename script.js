@@ -34,7 +34,7 @@ function renderCards() {
   const cards = [];
 
   barriers.forEach(barrier => {
-    if ((barrier.title.toLowerCase().includes(search) || barrier.description.toLowerCase().includes(search)) && activeThemes.includes(barrier.theme)) {
+    if ((barrier.tag.toLowerCase().includes(search) || barrier.description.toLowerCase().includes(search)) && activeThemes.includes(barrier.theme)) {
       const card = document.createElement('div');
       card.className = 'card barrier';
       card.dataset.id = barrier.id;

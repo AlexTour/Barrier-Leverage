@@ -1,114 +1,149 @@
-const container = document.getElementById('cards');
-const searchInput = document.getElementById('search');
-const themeFiltersContainer = document.getElementById('themeFilters');
+// script.js
 
-let barriers = [];
-let leveragePoints = [];
-let selectedCardId = null;
+let data = null;
+let selected = null; // { type: 'barrier'|'leverage', id: '...' }
 
-fetch('https://raw.githubusercontent.com/AlexTour/Barrier-Leverage/refs/heads/main/impactMap.json')
-  .then(res => res.json())
-  .then(data => {
-    barriers = data.barriers;
-    leveragePoints = data.leveragePoints;
-    createFilters();
-    renderCards();
-  });
+async function init() {
+  const res = await fetch(
+    "https://raw.githubusercontent.com/AlexTour/Barrier-Leverage/refs/heads/main/impactMap.json"
+  );
+  data = await res.json();
 
-function createFilters() {
-  const themes = [...new Set([...barriers, ...leveragePoints].map(x => x.theme))];
-  themes.forEach(theme => {
-    const label = document.createElement('label');
-    label.innerHTML = `<input type="checkbox" class="theme-filter" value="${theme}" checked> ${theme}`;
-    themeFiltersContainer.appendChild(label);
-  });
-  document.querySelectorAll('.theme-filter').forEach(cb => cb.addEventListener('change', renderCards));
-  searchInput.addEventListener('input', renderCards);
+  buildThemeFilters();
+  attachEventListeners();
+  renderAll();
 }
 
-function renderCards() {
-  const search = searchInput.value.toLowerCase();
-  const activeThemes = Array.from(document.querySelectorAll('.theme-filter:checked')).map(cb => cb.value);
-  container.innerHTML = '';
+function buildThemeFilters() {
+  const barrierThemes = data.barriers.map((b) => b.theme);
+  const leverageThemes = data.leveragePoints.map((lp) => lp.theme);
+  const allThemes = [...new Set([...barrierThemes, ...leverageThemes])];
 
-  const cards = [];
-
-  barriers.forEach(barrier => {
-    if ((barrier.tag.toLowerCase().includes(search) || barrier.description.toLowerCase().includes(search)) && activeThemes.includes(barrier.theme)) {
-      const card = document.createElement('div');
-      card.className = 'card barrier';
-      card.dataset.id = barrier.id;
-      card.dataset.type = 'barrier';
-      card.innerHTML = `
-        <span class="label">${barrier.theme}</span>
-        <h3>${barrier.tag}</h3>
-        <p>${barrier.description}</p>
-        <small class="source">${barrier.source}</small>
-      `;
-      cards.push(card);
-      container.appendChild(card);
-    }
+  const container = document.getElementById("theme-filters");
+  container.innerHTML = "";
+  allThemes.forEach((t) => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <label><input type="checkbox" value="${t}" checked> ${t}</label>
+    `;
+    container.appendChild(div);
   });
+}
 
-leveragePoints.forEach(lp => {
-  if (
-    lp.tag.toLowerCase().includes(search) ||
-    lp.description.toLowerCase().includes(search)
-  ) {
-    if (activeThemes.includes(lp.theme)) {
-      const div = document.createElement('div');
-      div.className = 'card leverage';
-      div.dataset.id = lp.id;
-      div.dataset.type = 'leverage';
+function attachEventListeners() {
+  document.getElementById("search").addEventListener("input", renderAll);
+  document
+    .querySelectorAll("#theme-filters input[type=checkbox]")
+    .forEach((cb) => cb.addEventListener("change", renderAll));
+}
 
-      div.innerHTML = `
-        <span class="label">${lp.theme}</span>
-        <h3>${lp.tag}</h3>
-        <p>${lp.description}</p>
-        <p><strong>Addresses:</strong> ${lp.addresses?.join(', ') ?? ''}</p>
-        <small class="source">${lp.source}</small>
-      `;
-      container.appendChild(div);
-    }
+function renderAll() {
+  renderSection("barrier-cards", "barrier");
+  renderSection("leverage-cards", "leverage");
+  applySelectionEffects();
+}
+
+function renderSection(containerId, type) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+  const filtered = filterItems(type);
+
+  filtered.forEach((item) => {
+    const card = document.createElement("div");
+    card.className = `card`;
+    card.dataset.type = type;
+    card.dataset.id = item.id;
+
+    const label = document.createElement("span");
+    label.className = `label theme-${toClass(item.theme)}`;
+    label.textContent = item.theme;
+
+    const title = document.createElement("h3");
+    title.textContent = type === "barrier" ? item.tag : item.action;
+
+    const desc = document.createElement("p");
+    desc.textContent = item.description;
+
+    const source = document.createElement("div");
+    source.className = "source";
+    source.textContent = item.source;
+
+    card.appendChild(label);
+    card.appendChild(title);
+    card.appendChild(desc);
+    card.appendChild(source);
+
+    card.addEventListener("click", () => selectCard(type, item.id));
+    container.appendChild(card);
+  });
+}
+
+function filterItems(type) {
+  const text = document.getElementById("search").value.toLowerCase();
+  const active = Array.from(
+    document.querySelectorAll("#theme-filters input:checked")
+  ).map((cb) => cb.value);
+
+  return (type === "barrier" ? data.barriers : data.leveragePoints)
+    .filter((it) => active.includes(it.theme))
+    .filter(
+      (it) =>
+        (it.tag || it.action).toLowerCase().includes(text) ||
+        it.description.toLowerCase().includes(text)
+    );
+}
+
+function selectCard(type, id) {
+  if (selected && selected.type === type && selected.id === id) {
+    selected = null; // unselect
+  } else {
+    selected = { type, id };
   }
-});
-
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      const isSame = selectedCardId === card.dataset.id;
-      selectedCardId = isSame ? null : card.dataset.id;
-      updateHighlights(cards);
-    });
-  });
-
-  updateHighlights(cards);
+  applySelectionEffects();
 }
 
-function updateHighlights(cards) {
-  cards.forEach(card => card.classList.remove('selected', 'connected', 'faded'));
-  if (!selectedCardId) return;
-  const selected = cards.find(c => c.dataset.id === selectedCardId);
+function applySelectionEffects() {
+  const allCards = document.querySelectorAll(".card");
+  allCards.forEach((card) => {
+    card.classList.remove("selected", "related");
+    card.style.opacity = selected ? "0.3" : "1";
+  });
+
   if (!selected) return;
-  selected.classList.add('selected');
-  const type = selected.dataset.type;
-  const id = selected.dataset.id;
-  const connectedIds = [];
 
-  if (type === 'barrier') {
-    leveragePoints.forEach(lp => {
-      if (lp.addresses.includes(id)) connectedIds.push(lp.id);
-    });
-  } else if (type === 'leverage') {
-    const ids = selected.dataset.addresses ? selected.dataset.addresses.split(',') : [];
-    connectedIds.push(...ids);
+  const selCard = document.querySelector(
+    `.card[data-type="${selected.type}"][data-id="${selected.id}"]`
+  );
+  if (selCard) {
+    selCard.classList.add("selected");
+    selCard.style.opacity = "1";
   }
 
-  cards.forEach(card => {
-    if (card.dataset.id === id) return;
-    if (connectedIds.includes(card.dataset.id)) {
-      card.classList.add('connected');
-    } else {
-      card.classList.add('faded');
+  let relatedIDs = [];
+  if (selected.type === "barrier") {
+    relatedIDs = data.leveragePoints
+      .filter((lp) => lp.addressesBarrierIDs.includes(selected.id))
+      .map((lp) => lp.id);
+  } else {
+    const lp = data.leveragePoints.find((lp) => lp.id === selected.id);
+    relatedIDs = lp ? lp.addressesBarrierIDs : [];
+  }
+
+  const relatedType = selected.type === "barrier" ? "leverage" : "barrier";
+  relatedIDs.forEach((id) => {
+    const card = document.querySelector(
+      `.card[data-type="${relatedType}"][data-id="${id}"]`
+    );
+    if (card) {
+      card.classList.add("related");
+      card.style.opacity = "1";
     }
   });
 }
+
+// Convert theme name to safe CSS class
+function toClass(str) {
+  return str.replace(/\s+/g, "").replace(/[^A-Za-z0-9]/g, "");
+}
+
+init();

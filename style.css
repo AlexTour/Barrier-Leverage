@@ -1,103 +1,130 @@
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
-    header {
-      position: fixed;
-      top: 0; left: 200px; right: 0;
-      height: 60px;
-      background: #f5f5f5;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 0 20px;
-      border-bottom: 2px solid #69ab46;
-      z-index: 2;
-    }
-    header input {
-      padding: 8px 12px;
-      border: 2px solid #69ab46;
-      border-radius: 4px;
-    }
-    aside {
-      width: 200px;
-      background: #f5f5f5;
-      padding: 80px 10px 20px 10px;
-      border-right: 2px solid #69ab46;
-      overflow-y: auto;
-      position: fixed;
-      top: 0; left: 0; bottom: 0;
-    }
-    main {
-      margin-left: 200px;
-      margin-top: 60px;
-      padding: 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      height: calc(100vh - 60px);
-    }
-    .card {
-      border: 2px solid #69ab46;
-      border-radius: 8px;
-      padding: 16px;
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card h3 {
-      margin: 0 0 10px;
-      color: #69ab46;
-    }
-    .card p {
-      margin: 0 0 10px;
-    }
-    .source {
-      font-size: 0.8em;
-      color: #555;
-      margin-top: auto;
-    }
-    .label {
-      background: #69ab46;
-      color: white;
-      border-radius: 4px;
-      padding: 2px 6px;
-      font-size: 0.8em;
-      display: inline-block;
-      margin-bottom: 10px;
-    }
-    aside h4 {
-      margin: 10px 0;
-    }
-    aside label {
-      display: block;
-      margin-bottom: 8px;
-    }
+body {
+  margin: 0;
+  font-family: sans-serif;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
 
+#app {
+  display: flex;
+  width: 100%;
+}
+
+aside {
+  width: 300px;
+  background: #f4f4f4;
+  padding: 1rem;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+}
+
+main {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background: #fafafa;
+}
+
+#search {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* Card Basics */
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: 0.3s ease;
+  background: white;
+}
+
+/* Selected Card */
+.card.selected {
+  border: 3px solid #000;
+}
+
+/* Connected Cards */
+.card.connected {
+  border: 2px dashed #007acc;
+  background-color: #eef7ff;
+}
+
+/* Faded Out */
+.card.faded {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Theme colors — define all theme variants */
+.label {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+
+.theme-Informationflows {
+  background-color: #0277bd;
+}
+.theme-Howwesetgoals {
+  background-color: #2e7d32;
+}
+.theme-Howweseethesystem {
+  background-color: #f57c00;
+}
+.theme-Howweseesystems {
+  background-color: #f57c90;
+}
+.theme-Howwestructuresystems {
+  background-color: #c62828;
+}
+.theme-Positivefeedback {
+  background-color: #455a64;
+}
+.theme-Mindsets {
+  background-color: #6a1b9a;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card .label {
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: white;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.card .source {
+  font-size: 0.7rem;
+  color: #888;
+}
 
 .card.barrier {
-  border: 2px solid #69ab46;
+  background: #fff0f0;
 }
-
 .card.leverage {
-  border: 2px solid #4682b4;
+  background: #f0fff0;
 }
 
-.card.selected {
-  border-width: 3px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-
-.card.connected {
-  border-width: 3px;
-  opacity: 1;
-}
-
-.card.faded {
-  opacity: 0.2;
+input[type="checkbox"] {
+  margin-right: 0.5rem;
 }

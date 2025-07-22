@@ -50,24 +50,28 @@ function renderCards() {
     }
   });
 
-  leveragePoints.forEach(lp => {
-    if ((lp.action.toLowerCase().includes(search) || lp.description.toLowerCase().includes(search)) && activeThemes.includes(lp.theme)) {
-      const card = document.createElement('div');
-      card.className = 'card leverage';
-      card.dataset.id = lp.id;
-      card.dataset.type = 'leverage';
-      card.dataset.addresses = lp.addresses.join(',');
-      card.innerHTML = `
+leveragePoints.forEach(lp => {
+  if (
+    lp.tag.toLowerCase().includes(search) ||
+    lp.description.toLowerCase().includes(search)
+  ) {
+    if (activeThemes.includes(lp.theme)) {
+      const div = document.createElement('div');
+      div.className = 'card leverage';
+      div.dataset.id = lp.id;
+      div.dataset.type = 'leverage';
+
+      div.innerHTML = `
         <span class="label">${lp.theme}</span>
-        <h3>${lp.action}</h3>
+        <h3>${lp.tag}</h3>
         <p>${lp.description}</p>
-        <p><strong>Addresses:</strong> ${lp.addresses.join(', ')}</p>
+        <p><strong>Addresses:</strong> ${lp.addresses?.join(', ') ?? ''}</p>
         <small class="source">${lp.source}</small>
       `;
-      cards.push(card);
-      container.appendChild(card);
+      container.appendChild(div);
     }
-  });
+  }
+});
 
   cards.forEach(card => {
     card.addEventListener('click', () => {

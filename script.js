@@ -41,7 +41,7 @@ function renderCards() {
       card.dataset.type = 'barrier';
       card.innerHTML = `
         <span class="label">${barrier.theme}</span>
-        <h3>${barrier.title}</h3>
+        <h3>${barrier.tag}</h3>
         <p>${barrier.description}</p>
         <small class="source">${barrier.source}</small>
       `;

@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <title>Barriers & Leverage Points</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impact Map</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <aside>
-    <h4>Filter by Theme</h4>
-    <div id="themeFilters"></div>
-  </aside>
-
-  <header>
-    <input type="text" id="search" placeholder="Search..." />
-  </header>
-
-  <main id="cards"></main>
+  <div id="app">
+    <aside>
+      <h2>Filter by Theme</h2>
+      <div id="theme-filters"></div>
+      <input type="text" id="search" placeholder="Search..." />
+    </aside>
+    <main>
+      <section>
+        <h2>Barriers</h2>
+        <div id="barrier-cards" class="card-grid"></div>
+      </section>
+      <section>
+        <h2>Leverage Points</h2>
+        <div id="leverage-cards" class="card-grid"></div>
+      </section>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
+
 </html>

@@ -51,7 +51,7 @@ main {
 
 /* Selected Card */
 .card.selected {
-  border: 3px solid #000;
+  border: 3px solid #76b543;
 }
 
 /* Connected Cards */
